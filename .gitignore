@@ -1,0 +1,15 @@
+### Builds ###
+target/
+
+### Rust ###
+# rustfmt
+**/*.rs.bk
+#MSVC
+*.pdb
+
+### IntelliJ IDEA project files ###
+.idea/
+*.iws
+*.ipr
+*.iml
+
