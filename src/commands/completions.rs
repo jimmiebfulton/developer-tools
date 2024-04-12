@@ -9,7 +9,6 @@ use crate::cli;
 pub fn execute(matches: &ArgMatches) -> Result<()> {
     if let Some(generator) = matches.get_one::<Shell>("generator") {
         let mut cmd = cli::command();
-        eprintln!("Generating completion file for {generator}...");
         generate(*generator, &mut cmd, "dt", &mut io::stdout());
     } else {
         return Err(Error::msg("Invalid completions shell"));

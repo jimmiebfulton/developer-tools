@@ -140,6 +140,7 @@ dependencies = [
  "camino",
  "clap",
  "clap_complete",
+ "regex",
  "tracing",
  "tracing-subscriber",
 ]

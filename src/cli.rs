@@ -5,6 +5,12 @@ pub fn command() -> Command {
     command!()
         .name("dt")
         .subcommand_required(true)
+        .arg(
+            Arg::new("verbosity")
+                .short('v')
+                .action(ArgAction::Count)
+                .global(true)
+        )
         .subcommand(
             Command::new("git")
                 .subcommand_required(true)
@@ -26,6 +32,27 @@ pub fn command() -> Command {
                             Arg::new("url")
                                 .help("Git URL")
                                 .required(true)
+                                .action(ArgAction::Set)
+                        )
+                        .arg(
+                            Arg::new("personal")
+                                .help("Configure Personal URL")
+                                .short('p')
+                                .action(ArgAction::SetTrue)
+                        )
+                )
+                .subcommand(
+                    Command::new("clone")
+                        .about("Initialize a Git Repo")
+                        .arg(
+                            Arg::new("url")
+                                .help("Git URL")
+                                .required(true)
+                                .action(ArgAction::Set)
+                        )
+                        .arg(
+                            Arg::new("destination")
+                                .help("Destination")
                                 .action(ArgAction::Set)
                         )
                         .arg(

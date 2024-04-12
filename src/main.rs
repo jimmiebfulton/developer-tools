@@ -5,9 +5,10 @@ mod commands;
 mod traces;
 
 fn main() -> Result<()> {
-    traces::init();
+    let matches = cli::command().get_matches();
+    traces::init(&matches);
 
-    match cli::command().get_matches().subcommand() {
+    match matches.subcommand() {
         Some(("aliases", matches)) => commands::aliases::execute(matches)?,
         Some(("completions", matches)) => commands::completions::execute(matches)?,
         Some(("git", matches)) => commands::git::execute(matches)?,
