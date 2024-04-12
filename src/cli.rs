@@ -35,6 +35,7 @@ pub fn command() -> Command {
                                 .action(ArgAction::SetTrue)
                         )
                 )
+        )
         .subcommand(
             Command::new("completions")
                 .about("Generate shell completions")
