@@ -12,4 +12,6 @@ clap = { version = "4.5.4", features = ["cargo", "derive"] }
 clap_complete = "4.5.2"
 regex = "1.10.4"
 tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "ansi"] }
+dirs = "5.0.1"
+log = "0.4.21"

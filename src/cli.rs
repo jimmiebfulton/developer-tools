@@ -1,4 +1,5 @@
 use clap::{command, Arg, Command, value_parser, ArgAction};
+use clap::builder::PathBufValueParser;
 use clap_complete::Shell;
 
 pub fn command() -> Command {
@@ -63,6 +64,19 @@ pub fn command() -> Command {
                         )
                 )
         )
+
+        .subcommand(
+        Command::new("rd")
+            .about("Remove Directory")
+            .arg_required_else_help(true)
+            .arg(
+                Arg::new("path")
+                    .help("Path to delete")
+                    .required(true)
+                    .value_parser(PathBufValueParser::new()),
+            )
+        )
+
         .subcommand(
             Command::new("completions")
                 .about("Generate shell completions")
