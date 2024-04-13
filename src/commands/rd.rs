@@ -67,6 +67,6 @@ fn external_to_home_error(path: Utf8PathBuf) -> Result<()> {
 }
 
 fn restricted_directory_error(path: Utf8PathBuf) -> Result<()> {
-    Err(anyhow!("'{path}' is a restricted directory'"))
+    Err(anyhow!("'{path}' is a restricted directory"))
 }
 

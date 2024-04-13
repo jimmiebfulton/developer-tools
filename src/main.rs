@@ -23,8 +23,7 @@ fn main() -> Result<()> {
 
 fn execute(matches: &ArgMatches) -> Result<()> {
     match matches.subcommand() {
-        Some(("aliases", matches)) => commands::aliases::execute(matches)?,
-        Some(("completions", matches)) => commands::completions::execute(matches)?,
+        Some(("init", matches)) => commands::init::execute(matches)?,
         Some(("git", matches)) => commands::git::execute(matches)?,
         Some(("rd", matches)) => commands::rd::execute(matches)?,
         None => unreachable!(),

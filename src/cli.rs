@@ -1,6 +1,5 @@
-use clap::{command, Arg, Command, value_parser, ArgAction};
+use clap::{command, Arg, Command, ArgAction};
 use clap::builder::PathBufValueParser;
-use clap_complete::Shell;
 
 pub fn command() -> Command {
     command!()
@@ -76,18 +75,14 @@ pub fn command() -> Command {
                     .value_parser(PathBufValueParser::new()),
             )
         )
-
         .subcommand(
-            Command::new("completions")
-                .about("Generate shell completions")
-                .arg_required_else_help(true)
-                .arg(
-                    Arg::new("generator")
-                        .value_parser(value_parser!(Shell)),
-                )
-        )
-        .subcommand(
-            Command::new("aliases")
+            Command::new("init")
                 .about("Generate fish abbreviations")
+                .subcommand_required(true)
+                .subcommand(
+                    Command::new("fish")
+                        .about("Initialize Fish Shell")
+
+                )
         )
 }
