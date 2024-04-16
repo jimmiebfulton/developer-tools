@@ -1,6 +1,6 @@
 use std::io;
 use anyhow::{Result};
-use clap::ArgMatches;
+use clap::{ArgMatches, crate_name};
 use clap_complete::{generate, Shell};
 use tracing::error;
 use crate::cli;
@@ -21,7 +21,7 @@ pub fn fish(_matches: &ArgMatches) -> Result<()> {
     println!("{}", source);
 
     let mut cmd = cli::command();
-    generate(Shell::Fish, &mut cmd, "dt", &mut io::stdout());
+    generate(Shell::Fish, &mut cmd, crate_name!(), &mut io::stdout());
 
     Ok(())
 }

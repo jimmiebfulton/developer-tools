@@ -1,9 +1,10 @@
-use clap::{command, Arg, Command, ArgAction};
-use clap::builder::PathBufValueParser;
+use clap::{command, Arg, Command, ArgAction, crate_name};
+use clap::builder::{EnumValueParser, PathBufValueParser};
+use crate::installers::InstallerKey;
 
 pub fn command() -> Command {
     command!()
-        .name("dt")
+        .name(crate_name!())
         .subcommand_required(true)
         .arg(
             Arg::new("verbosity")
@@ -69,12 +70,14 @@ pub fn command() -> Command {
             .about("Remove Directory")
             .arg_required_else_help(true)
             .arg(
-                Arg::new("path")
+                Arg::new("paths")
                     .help("Path to delete")
                     .required(true)
+                    .action(ArgAction::Append)
                     .value_parser(PathBufValueParser::new()),
             )
         )
+
         .subcommand(
             Command::new("init")
                 .about("Generate fish abbreviations")
@@ -84,5 +87,29 @@ pub fn command() -> Command {
                         .about("Initialize Fish Shell")
 
                 )
+        )
+
+        .subcommand(
+            Command::new("install")
+                .about("Install")
+                .arg(
+                    Arg::new("installer")
+                        .value_parser(EnumValueParser::<InstallerKey>::new())
+                        .required(true)
+                )
+        )
+
+        .subcommand(
+            Command::new("update")
+                .about("Update")
+                .arg(
+                    Arg::new("installer")
+                        .value_parser(EnumValueParser::<InstallerKey>::new())
+                        .required(true)
+                )
+        )
+        .subcommand(
+            Command::new("bootstrap")
+                .about("Bootstrap System")
         )
 }

@@ -6,7 +6,16 @@ use anyhow::{anyhow, Result};
 use camino::Utf8PathBuf;
 
 pub fn execute(matches: &ArgMatches) -> Result<()> {
-    let path = matches.get_one::<PathBuf>("path").expect("Clap Required");
+    let paths = matches.get_many::<PathBuf>("paths").expect("Required by Clap");
+
+    for path in paths {
+        handle_path(path)?;
+    }
+
+    Ok(())
+}
+
+fn handle_path(path: &PathBuf) -> Result<()> {
     let path = path.canonicalize().map_err(|err|anyhow!("Path '{}': {err}", path.to_str().unwrap()))?;
     let path = Utf8PathBuf::try_from(path)?;
 

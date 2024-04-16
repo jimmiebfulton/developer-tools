@@ -6,6 +6,10 @@ use tracing::error;
 mod cli;
 mod commands;
 mod traces;
+mod install;
+mod system;
+mod installers;
+mod utils;
 
 fn main() -> Result<()> {
     let matches = cli::command().get_matches();
@@ -23,7 +27,10 @@ fn main() -> Result<()> {
 
 fn execute(matches: &ArgMatches) -> Result<()> {
     match matches.subcommand() {
+        Some(("bootstrap", matches)) => commands::bootstrap::execute(matches)?,
         Some(("init", matches)) => commands::init::execute(matches)?,
+        Some(("install", matches)) => commands::install::execute_install(matches)?,
+        Some(("update", matches)) => commands::install::execute_update(matches)?,
         Some(("git", matches)) => commands::git::execute(matches)?,
         Some(("rd", matches)) => commands::rd::execute(matches)?,
         None => unreachable!(),

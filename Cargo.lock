@@ -139,6 +139,22 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "acbf1af155f9b9ef647e42cdc158db4b64a1b61f743629225fde6f3e0be2a7c7"
 
 [[package]]
+name = "d"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "camino",
+ "clap",
+ "clap_complete",
+ "dirs",
+ "log",
+ "once_cell",
+ "regex",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "dirs"
 version = "5.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -157,21 +173,6 @@ dependencies = [
  "option-ext",
  "redox_users",
  "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "dt"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "camino",
- "clap",
- "clap_complete",
- "dirs",
- "log",
- "regex",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
