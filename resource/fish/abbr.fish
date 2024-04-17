@@ -5,8 +5,12 @@ abbr -a gip d git init -p
 abbr -a gar d git add-remote
 abbr -a garp d git add-remote -p
 abbr -a gd git diff
-abbr -a dgc git diff --cached
+abbr -a gdc git diff --cached
 abbr -a gs git status
+abbr -a gpu git pull
+abbr -a gp git push
+abbr -a gph git push -u origin HEAD
+
 abbr -a a archetect
 abbr -a acm archetect cache manage
 abbr -a rr rustrover
