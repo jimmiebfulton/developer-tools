@@ -1,7 +1,7 @@
 use std::process::Command;
-use crate::install::installer::execute;
 use crate::installers::InstallerKey;
 use crate::system::Installable;
+use crate::utils::execute;
 
 pub struct NixPackageManager;
 

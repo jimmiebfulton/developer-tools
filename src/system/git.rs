@@ -3,9 +3,9 @@ use std::process::Command;
 
 use camino::Utf8PathBuf;
 
-use crate::install::installer::execute;
 use crate::installers::InstallerKey;
 use crate::system::Installable;
+use crate::utils::execute;
 
 pub struct GitRepo {
     name: String,

@@ -15,9 +15,9 @@ pub fn execute(matches: &ArgMatches) -> Result<()> {
 }
 
 pub fn fish(_matches: &ArgMatches) -> Result<()> {
-    let source = include_str!("../../resource/abbr.fish");
+    let source = include_str!("../../resource/fish/abbr.fish");
     println!("{}", source);
-    let source = include_str!("../../resource/functions.fish");
+    let source = include_str!("../../resource/fish/functions.fish");
     println!("{}", source);
 
     let mut cmd = cli::command();

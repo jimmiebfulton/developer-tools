@@ -2,10 +2,10 @@ fish_add_path /opt/homebrew/bin
 fish_add_path ~/bin
 fish_add_path ~/.cargo/bin
 
-source ~/.config/fish/local.fish
-
 # Commands to run in interactive sessions can go here
 if status is-interactive
+    fish_vi_key_bindings
+
     d init fish | source
 
     if test -f ~/.cargo/bin/archetect
@@ -21,4 +21,9 @@ if status is-interactive
     end
 
     set -gx EDITOR nvim
+
+    set -gx CDPATH ~/projects ~/projects/rust ~/projects/archetypes ~/tmp
 end
+
+source ~/.config/fish/local.fish
+

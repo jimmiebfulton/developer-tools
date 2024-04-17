@@ -1,0 +1,84 @@
+
+# Color picker: https://i.stack.imgur.com/KTSQa.png
+
+command_timeout = 2000
+
+format = """
+$username\
+$hostname\
+$shlvl\
+$kubernetes\
+$directory\
+[$git_branch$git_commit$git_state$git_status[ ](fg:39)](bg:39 fg:252)\
+$hg_branch\
+$docker_context\
+$package\
+$cmake\
+$dart\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$helm\
+$java\
+$julia\
+$nim\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$purescript\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$nix_shell\
+$conda\
+$memory_usage\
+$aws\
+$gcloud\
+$openstack\
+$env_var\
+$crystal\
+$cmd_duration\
+$custom\
+$line_break\
+$lua\
+$jobs\
+$battery\
+$time\
+$status\
+$character"""
+
+[character]
+success_symbol = "[I❯](bold bright-green)"
+error_symbol = "[I❯](bold red)"
+vimcmd_symbol = "[N❯](bold #ff9900)"
+vimcmd_visual_symbol = '[V❯](bold cyan)'
+vimcmd_replace_one_symbol = "[R❯](bold purple)"
+vimcmd_replace_symbol = "[R❯](bold purple)"
+
+
+[directory]
+style = "bg:252 fg:black"
+format = "[$read_only $path]($style)[ ](bg:39 fg:252)"
+
+[git_branch]
+format = "[$symbol$branch]($style)"
+style = "bg:39 fg:white"
+
+[git_state]
+format = ' \([$state( $progress_current/$progress_total)]($style)\)'
+style = "bg:39 fg:9 bold"
+
+[git_status]
+format = '( [$all_status$ahead_behind]($style))'
+style = "bg:39 fg:9 bold"
+
+#[status]
+#format = '[$symbol]($style) '
+#symbol = "💩 "
+#disabled = false

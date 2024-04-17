@@ -100,6 +100,38 @@ pub fn command() -> Command {
         )
 
         .subcommand(
+            Command::new("purge")
+                .about("Purge Commands")
+                .arg_required_else_help(true)
+                .subcommand(
+                    Command::new("ide-files")
+                        .about("Purges IDE files recursively within one or more projects.")
+                        .arg(Arg::new("dry-run").long("dry-run").action(clap::ArgAction::SetTrue)),
+                )
+                .subcommand(
+                    Command::new("maven")
+                        .about("Purge subsets of the local Maven cache")
+                        .arg(
+                            Arg::new("path")
+                                .required(true)
+                                .help(
+                                    "Specifies the path to purge as a subset of the Maven coordinates.",
+                                ),
+                        ),
+                ),
+        )
+
+        .subcommand(
+            Command::new("update")
+                    .about("Update")
+                .arg(
+                    Arg::new("installer")
+                        .value_parser(EnumValueParser::<InstallerKey>::new())
+                        .required(true)
+                )
+        )
+
+        .subcommand(
             Command::new("update")
                 .about("Update")
                 .arg(
@@ -108,8 +140,5 @@ pub fn command() -> Command {
                         .required(true)
                 )
         )
-        .subcommand(
-            Command::new("bootstrap")
-                .about("Bootstrap System")
-        )
+
 }

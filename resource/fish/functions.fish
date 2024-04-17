@@ -25,6 +25,14 @@ function mcd
     cd $argv
 end
 
+function reload
+    source ~/.config/fish/config.fish
+end
+
+function pbc
+    pbcopy < $argv
+end
+
 function fish_mode_prompt
     switch $fish_bind_mode
         case default

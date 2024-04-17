@@ -22,3 +22,6 @@ abbr -a mcps mvn clean package -DskipTests
 abbr -a mci mvn clean install
 abbr -a mcis mvn clean install -DskipTests
 abbr -a nv nvim
+abbr -a - cd -
+abbr -a pif d purge ide-files
+abbr -a pim d purge maven

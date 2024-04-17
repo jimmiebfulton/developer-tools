@@ -1,10 +1,9 @@
 use std::fmt::{Display, Formatter};
 use std::process::Command;
 
-use crate::install::installer::execute;
 use crate::installers::InstallerKey;
 use crate::system::Installable;
-use crate::utils::home_path;
+use crate::utils::{execute, home_path};
 
 pub struct CargoCommand {
     command: String,
@@ -29,6 +28,7 @@ impl CargoCommand {
         self.package.as_ref()
     }
 
+    #[allow(dead_code)]
     pub fn with_dependency(mut self, key: InstallerKey) -> CargoCommand {
         self.dependencies.push(key);
         self
@@ -69,6 +69,12 @@ impl Installable for Rust {
             Command::new("/bin/bash")
                 .arg("-c")
                 .arg( "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh")
+        )?;
+        execute(
+            Command::new(home_path(".cargo/bin/rustup".to_string()))
+                .arg("component")
+                .arg("add")
+                .arg("rust-src")
         )?;
         Ok(())
     }

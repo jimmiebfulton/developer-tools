@@ -1,8 +1,8 @@
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex, OnceLock, RwLock};
+use std::sync::{Arc, OnceLock, RwLock};
 
 use anyhow::{anyhow, Result};
-use tracing::{debug, info, trace};
+use tracing::{debug, info};
 use crate::installers::InstallerKey;
 
 use crate::system::Installable;
@@ -16,12 +16,12 @@ pub fn install(key: &InstallerKey) -> Result<()> {
     registry().read().unwrap().install(key)
 }
 
-pub fn installed(key: &InstallerKey) -> Result<bool> {
-    registry().read().unwrap().installed(key)
+pub fn update(key: &InstallerKey) -> Result<()> {
+    registry().read().unwrap().update(key)
 }
 
-pub fn init() -> Result<()> {
-    crate::installers::init()
+pub fn installed(key: &InstallerKey) -> Result<bool> {
+    registry().read().unwrap().installed(key)
 }
 
 pub fn register<I: Installable + 'static>(key: InstallerKey, installer: I) -> Result<()> {
@@ -65,6 +65,18 @@ impl Registry {
                     info!("\t'{key:?}' already installed");
                     Ok(())
                 }
+            }
+        }
+    }
+
+    pub fn update(&self, key: &InstallerKey) -> Result<()> {
+        match self.installers.get(key) {
+            None => {
+                return Err(anyhow!("'{:?}' not registered", key))
+            }
+            Some(installer) => {
+                info!("Updating '{key:?}'");
+                installer.update()
             }
         }
     }

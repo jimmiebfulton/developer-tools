@@ -1,13 +1,11 @@
-use std::fmt::{Display, Formatter};
 use std::process::Command;
 
 use camino::{Utf8Path, Utf8PathBuf};
 use tracing::debug;
-use crate::install::installer::execute;
 
-use crate::system::Installable;
 use crate::installers::InstallerKey;
-use crate::utils::homebrew_path;
+use crate::system::Installable;
+use crate::utils::{execute, homebrew_path};
 
 pub struct HomebrewPackage {
     install_check: Utf8PathBuf,

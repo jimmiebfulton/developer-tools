@@ -1,7 +1,7 @@
 use std::fmt::{Display, Formatter};
-use tracing::debug;
+
 use crate::installers::InstallerKey;
-use crate::system::{CargoCommand, Installable};
+use crate::system::Installable;
 use crate::system::registry::installed;
 
 pub struct Group {

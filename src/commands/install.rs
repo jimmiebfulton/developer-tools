@@ -1,7 +1,7 @@
 use clap::ArgMatches;
 use anyhow::Result;
 use crate::installers::{init, InstallerKey};
-use crate::system::install;
+use crate::system::{install, update};
 
 pub fn execute_install(matches: &ArgMatches) -> Result<()> {
     let key = matches.get_one::<InstallerKey>("installer").expect("Clap Required");
@@ -13,6 +13,6 @@ pub fn execute_install(matches: &ArgMatches) -> Result<()> {
 pub fn execute_update(matches: &ArgMatches) -> Result<()> {
     let key = matches.get_one::<InstallerKey>("installer").expect("Clap Required");
     init()?;
-    println!("Updating '{key:?}'");
+    update(key)?;
     Ok(())
 }
