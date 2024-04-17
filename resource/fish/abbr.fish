@@ -4,6 +4,8 @@ abbr -a gi d git init
 abbr -a gip d git init -p
 abbr -a gar d git add-remote
 abbr -a garp d git add-remote -p
+abbr -a gd git diff
+abbr -a dgc git diff --cached
 abbr -a gs git status
 abbr -a a archetect
 abbr -a acm archetect cache manage
