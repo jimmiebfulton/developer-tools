@@ -137,6 +137,11 @@ pub fn init() -> Result<()> {
     )?;
 
     register(
+        Lazygit,
+        HomebrewPackage::command("lazygit")
+    )?;
+
+    register(
         Ripgrep,
         HomebrewPackage::command("rg"),
     )?;
@@ -193,6 +198,7 @@ pub enum InstallerKey {
     Karabiner,
     Kind,
     Kubernetes,
+    Lazygit,
     Nix,
     Node,
     Neovim,
