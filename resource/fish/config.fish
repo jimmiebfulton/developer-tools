@@ -22,7 +22,7 @@ if status is-interactive
 
     set -gx EDITOR nvim
 
-    set -gx CDPATH ~/projects ~/projects/rust ~/projects/archetypes ~/tmp
+    set -gx CDPATH . ~/projects ~/projects/rust ~/projects/archetypes ~/tmp
 end
 
 source ~/.config/fish/local.fish
