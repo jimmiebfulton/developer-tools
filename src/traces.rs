@@ -19,6 +19,7 @@ pub fn init(matches: &ArgMatches) {
         .with_writer(io::stderr)
         .with_ansi(true)
         .without_time()
+        .with_target(false)
         .with_filter(filter);
     tracing_subscriber::registry()
         .with(layer)
