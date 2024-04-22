@@ -32,3 +32,10 @@ abbr -a nv nvim
 abbr -a - cd -
 abbr -a pif d purge ide-files
 abbr -a pim d purge maven
+
+abbr -a ls exa
+abbr -a ll exa -l
+abbr -a la exa -a
+abbr -a lr exa -R
+abbr -a tree exa -T
+abbr -a lt exa -T
