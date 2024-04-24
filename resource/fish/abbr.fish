@@ -23,6 +23,7 @@ abbr -a gph git push -u origin HEAD
 abbr -a a archetect
 abbr -a acm archetect cache manage
 abbr -a rr rustrover
+abbr -a rr. rustrover .
 abbr -a i idea
 abbr -a mcp mvn clean package
 abbr -a mcps mvn clean package -DskipTests
@@ -38,4 +39,4 @@ abbr -a ll exa -l
 abbr -a la exa -a
 abbr -a lr exa -R
 abbr -a tree exa -T
-abbr -a lt exa -T
+abbr -a lr exa -T
