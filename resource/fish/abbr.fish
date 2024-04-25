@@ -14,7 +14,6 @@ abbr -a garp d git add-remote -p
 abbr -a gd git diff
 abbr -a gdc git diff --cached
 abbr -a grh git reset --hard
-abbr -a gcl git clean -df
 abbr -a gs git status
 abbr -a gpu git pull
 abbr -a gp git push
