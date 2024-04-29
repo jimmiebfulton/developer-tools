@@ -1,4 +1,5 @@
 pub use cargo::{CargoCommand, Rust};
+pub use docker::DockerSymlinkInstaller;
 pub use fish::FishConfigInstaller;
 pub use git::GitRepo;
 pub use group::Group;
@@ -13,6 +14,7 @@ mod installable;
 mod homebrew;
 mod registry;
 mod cargo;
+mod docker;
 mod git;
 mod group;
 mod nix;

@@ -4,7 +4,7 @@ use clap::ValueEnum;
 
 use InstallerKey::*;
 
-use crate::system::{CargoCommand, FishConfigInstaller, GitRepo, Group, HomebrewPackage, IdeavimConfigInstaller, NixPackageManager, register, StarshipConfigInstaller};
+use crate::system::{CargoCommand, DockerSymlinkInstaller, FishConfigInstaller, GitRepo, Group, HomebrewPackage, IdeavimConfigInstaller, NixPackageManager, register, StarshipConfigInstaller};
 use crate::utils::home_path;
 
 pub fn init() -> Result<()> {
@@ -12,7 +12,14 @@ pub fn init() -> Result<()> {
         Docker,
         HomebrewPackage::new("docker", Utf8PathBuf::from("/usr/local/bin/docker"))
             .cask()
-            .with_dependency(Homebrew),
+            .with_dependency(Homebrew)
+            .with_dependency(DockerSymlink)
+
+    )?;
+
+    register(
+        DockerSymlink,
+        DockerSymlinkInstaller,
     )?;
 
     register(
@@ -187,6 +194,7 @@ pub enum InstallerKey {
     Archetect,
     ArchetectRepo,
     Docker,
+    DockerSymlink,
     Exa,
     Fish,
     FishConfig,
