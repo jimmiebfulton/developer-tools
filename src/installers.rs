@@ -168,6 +168,11 @@ pub fn init() -> Result<()> {
     )?;
 
     register(
+        Tailwind,
+        HomebrewPackage::command("tailwindcss"),
+    )?;
+
+    register(
         Trunk,
         HomebrewPackage::command("trunk"),
     )?;
@@ -243,6 +248,7 @@ pub enum InstallerKey {
     Rust,
     Starship,
     StarshipConfig,
+    Tailwind,
     Tilt,
     Trunk,
     Wezterm,
