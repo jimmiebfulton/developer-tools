@@ -5,7 +5,7 @@ use clap::ValueEnum;
 use InstallerKey::*;
 
 use crate::system::{CargoCommand, DockerSymlinkInstaller, FishConfigInstaller, GitRepo, Group, HomebrewPackage, IdeavimConfigInstaller, NixPackageManager, register, StarshipConfigInstaller};
-use crate::utils::home_path;
+use crate::utils::{home_path, homebrew_path};
 
 pub fn init() -> Result<()> {
     register(
@@ -25,15 +25,18 @@ pub fn init() -> Result<()> {
     register(
         Tilt,
         HomebrewPackage::command("tilt")
-            .with_dependency(Homebrew)
             .with_dependency(Docker),
     )?;
 
     register(
         Kind,
         HomebrewPackage::command("kind")
-            .with_dependency(Homebrew)
             .with_dependency(Docker),
+    )?;
+
+    register(
+        Just,
+        HomebrewPackage::command("just")
     )?;
 
     register(
@@ -149,8 +152,24 @@ pub fn init() -> Result<()> {
     )?;
 
     register(
+        Postman,
+        HomebrewPackage::new("postman", Utf8PathBuf::from("/Applications/Postman.app"))
+            .cask()
+    )?;
+
+    register(
+       Protoc,
+        HomebrewPackage::new("protobuf", homebrew_path("protoc"))
+    )?;
+
+    register(
         Ripgrep,
         HomebrewPackage::command("rg"),
+    )?;
+
+    register(
+        Trunk,
+        HomebrewPackage::command("trunk"),
     )?;
 
     register(
@@ -166,6 +185,11 @@ pub fn init() -> Result<()> {
     register(
         Karabiner,
         HomebrewPackage::new("karabiner-elements", Utf8PathBuf::from("/test")),
+    )?;
+
+    register(
+        Maven,
+        HomebrewPackage::new("maven", homebrew_path("mvn")),
     )?;
 
     register(
@@ -203,19 +227,24 @@ pub enum InstallerKey {
     IdeavimConfig,
     JetbrainsFont,
     JetbrainsToolbox,
+    Just,
     Karabiner,
     Kind,
     Kubernetes,
     Lazygit,
+    Maven,
     Nix,
     Node,
     Neovim,
     NeovimConfig,
+    Postman,
+    Protoc,
     Ripgrep,
     Rust,
     Starship,
     StarshipConfig,
     Tilt,
+    Trunk,
     Wezterm,
     WeztermConfig,
     Zed,
