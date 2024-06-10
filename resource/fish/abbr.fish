@@ -18,6 +18,7 @@ abbr -a gs git status
 abbr -a gpu git pull
 abbr -a gp git push
 abbr -a gph git push -u origin HEAD
+abbr -a gcom git checkout main
 
 abbr -a a archetect
 abbr -a acm archetect cache manage

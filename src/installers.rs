@@ -138,7 +138,8 @@ pub fn init() -> Result<()> {
 
     register(
         Fish,
-        HomebrewPackage::command("fish"),
+        HomebrewPackage::command("fish")
+            .with_dependency(FishConfig),
     )?;
 
     register(
@@ -203,6 +204,11 @@ pub fn init() -> Result<()> {
     )?;
 
     register(
+        Nushell,
+        HomebrewPackage::new("nushell", homebrew_path("nu"))
+    )?;
+
+    register(
         Starship,
         CargoCommand::new("starship")
             .with_dependency(StarshipConfig)
@@ -242,6 +248,7 @@ pub enum InstallerKey {
     Node,
     Neovim,
     NeovimConfig,
+    Nushell,
     Postman,
     Protoc,
     Ripgrep,
@@ -257,5 +264,3 @@ pub enum InstallerKey {
     Zoom,
     Zoxide,
 }
-
-
