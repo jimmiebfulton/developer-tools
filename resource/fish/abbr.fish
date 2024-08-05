@@ -27,6 +27,8 @@ abbr -a rr. rustrover .
 abbr -a i idea
 abbr -a pc pycharm
 abbr -a pc. pycharm .
+abbr -a c. clion .
+abbr -a c clion
 abbr -a mcp mvn clean package
 abbr -a mcps mvn clean package -DskipTests
 abbr -a mci mvn clean install
