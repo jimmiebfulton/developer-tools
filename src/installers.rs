@@ -9,6 +9,14 @@ use crate::utils::{home_path, homebrew_path};
 
 pub fn init() -> Result<()> {
     register(
+        ArchetectRepo,
+        GitRepo::new(
+            "Archtect Repo",
+            "git@github.com:archetect/archetect.git",
+            home_path("projects/rust/archetect"),
+        ).with_dependency(JetbrainsFont).with_dependency(Node),
+    )?;
+    register(
         Docker,
         HomebrewPackage::new("docker", Utf8PathBuf::from("/usr/local/bin/docker"))
             .cask()
@@ -71,8 +79,8 @@ pub fn init() -> Result<()> {
     )?;
 
     register(
-        Exa,
-        CargoCommand::new("exa"),
+        Ezo,
+        CargoCommand::new("eza"),
     )?;
 
     register(
@@ -230,7 +238,7 @@ pub enum InstallerKey {
     ArchetectRepo,
     Docker,
     DockerSymlink,
-    Exa,
+    Ezo,
     Fish,
     FishConfig,
     Fonts,

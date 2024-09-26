@@ -20,10 +20,13 @@ if status is-interactive
         zoxide init fish | source
     end
 
+    if test -d "/Applications/Araxis Merge.app"
+        fish_add_path "/Applications/Araxis Merge.app/Contents/Utilities/"
+    end
+
     set -gx EDITOR nvim
 
     set -gx CDPATH . ~/projects ~/projects/rust ~/projects/archetypes ~/tmp
 end
 
 source ~/.config/fish/local.fish
-

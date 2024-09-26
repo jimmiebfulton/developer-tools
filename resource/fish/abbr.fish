@@ -38,9 +38,11 @@ abbr -a - cd -
 abbr -a pif d purge ide-files
 abbr -a pim d purge maven
 
-abbr -a ls exa
-abbr -a ll exa -l
-abbr -a la exa -a
-abbr -a lr exa -R
-abbr -a tree exa -T
-abbr -a lr exa -T
+abbr -a ls eza
+abbr -a ll eza -l
+abbr -a la eza -a
+abbr -a lr eza -R
+abbr -a tree eza -T
+abbr -a lr eza -T
+
+abbr -a y yazi

@@ -56,7 +56,7 @@ impl Installable for HomebrewPackage {
                     .arg(tap)
             )?;
         }
-        let mut command = Command::new("brew");
+        let mut command = Command::new("/opt/homebrew/bin/brew");
         command.arg("install");
         if self.cask {
             command.arg("--cask");

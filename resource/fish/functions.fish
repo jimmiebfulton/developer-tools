@@ -4,6 +4,10 @@ function rd.
     d rd $directory; or cd $directory
 end
 
+function cy
+    z (echo (yazi --cwd-file /dev/stdout))
+end
+
 function rd
     d rd $argv
 end
