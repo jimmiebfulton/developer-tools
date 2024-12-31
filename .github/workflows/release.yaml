@@ -22,6 +22,7 @@ env:
   BINARY_DESCRIPTION: "Developer Tools"
   DOWNLOAD_PREFIX: "https://github.com/${{ github.repository }}/releases/download"
   DESTINATION_HOMEBREW_TAP: ${{ github.repository_owner }}/homebrew-tap
+  REPOSITORY_DISPATCH_TOKEN: ${{ secrets.REPOSITORY_DISPATCH_TOKEN }}
   COMMIT_USER: github-actions
   COMMIT_EMAIL: github-actions@users.noreply.github.com
 
@@ -174,7 +175,7 @@ jobs:
       - name: Dispatch event to ${{ env.DESTINATION_HOMEBREW_TAP }}
         uses: ph-fritsche/action-dispatch@v1
         with:
-          token: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+          token: ${{ env.REPOSITORY_DISPATCH_TOKEN }}
           type: repository
           repo: ${{ env.DESTINATION_HOMEBREW_TAP }}
           ident: update-formula
