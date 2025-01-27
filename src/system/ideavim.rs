@@ -1,10 +1,10 @@
-use std::fs::OpenOptions;
-use std::io::Write;
-use anyhow::Context;
-use camino::Utf8PathBuf;
 use crate::installers::InstallerKey;
 use crate::system::Installable;
 use crate::utils::home_path;
+use anyhow::Context;
+use camino::Utf8PathBuf;
+use std::fs::OpenOptions;
+use std::io::Write;
 
 pub struct IdeavimConfigInstaller;
 
@@ -17,9 +17,13 @@ impl IdeavimConfigInstaller {
 impl Installable for IdeavimConfigInstaller {
     fn install(&self) -> anyhow::Result<()> {
         let config_path = Self::config_path();
-        let mut config_file = OpenOptions::new().write(true).create(true).open(&config_path)
+        let mut config_file = OpenOptions::new()
+            .write(true)
+            .truncate(true)
+            .open(&config_path)
             .context(format!("Error opening {config_path}"))?;
-        config_file.write_all(include_bytes!("../../resource/ideavim/.ideavimrc"))
+        config_file
+            .write_all(include_bytes!("../../resource/ideavim/.ideavimrc"))
             .context(format!("Error writing {config_path}"))?;
         Ok(())
     }
@@ -27,7 +31,6 @@ impl Installable for IdeavimConfigInstaller {
     fn update(&self) -> anyhow::Result<()> {
         self.install()
     }
-
 
     fn installed(&self) -> anyhow::Result<bool> {
         Ok(Self::config_path().exists())
@@ -37,3 +40,4 @@ impl Installable for IdeavimConfigInstaller {
         Default::default()
     }
 }
+

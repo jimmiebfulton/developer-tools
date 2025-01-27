@@ -1,12 +1,14 @@
-use std::collections::HashSet;
-use std::fs;
-use std::path::PathBuf;
-use clap::ArgMatches;
 use anyhow::{anyhow, Result};
 use camino::Utf8PathBuf;
+use clap::ArgMatches;
+use std::collections::HashSet;
+use std::fs;
+use std::path::{Path, PathBuf};
 
 pub fn execute(matches: &ArgMatches) -> Result<()> {
-    let paths = matches.get_many::<PathBuf>("paths").expect("Required by Clap");
+    let paths = matches
+        .get_many::<PathBuf>("paths")
+        .expect("Required by Clap");
 
     for path in paths {
         handle_path(path)?;
@@ -15,8 +17,10 @@ pub fn execute(matches: &ArgMatches) -> Result<()> {
     Ok(())
 }
 
-fn handle_path(path: &PathBuf) -> Result<()> {
-    let path = path.canonicalize().map_err(|err|anyhow!("Path '{}': {err}", path.to_str().unwrap()))?;
+fn handle_path(path: &Path) -> Result<()> {
+    let path = path
+        .canonicalize()
+        .map_err(|err| anyhow!("Path '{}': {err}", path.to_str().unwrap()))?;
     let path = Utf8PathBuf::try_from(path)?;
 
     if !path.starts_with(home()?) {
@@ -78,4 +82,3 @@ fn external_to_home_error(path: Utf8PathBuf) -> Result<()> {
 fn restricted_directory_error(path: Utf8PathBuf) -> Result<()> {
     Err(anyhow!("'{path}' is a restricted directory"))
 }
-

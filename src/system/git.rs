@@ -11,11 +11,15 @@ pub struct GitRepo {
     name: String,
     url: String,
     directory: Utf8PathBuf,
-    dependencies: Vec<InstallerKey>
+    dependencies: Vec<InstallerKey>,
 }
 
 impl GitRepo {
-    pub fn new<N: Into<String>, U: Into<String>, D: Into<Utf8PathBuf>>(name: N, url: U, directory: D) -> GitRepo {
+    pub fn new<N: Into<String>, U: Into<String>, D: Into<Utf8PathBuf>>(
+        name: N,
+        url: U,
+        directory: D,
+    ) -> GitRepo {
         GitRepo {
             name: name.into(),
             url: url.into(),
@@ -42,7 +46,7 @@ impl Installable for GitRepo {
             Command::new("git")
                 .arg("clone")
                 .arg(&self.url)
-                .arg(self.directory.to_string())
+                .arg(&self.directory),
         )?;
         Ok(())
     }
@@ -55,3 +59,4 @@ impl Installable for GitRepo {
         self.dependencies.as_slice()
     }
 }
+

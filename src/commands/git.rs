@@ -4,8 +4,8 @@ use std::sync::OnceLock;
 use anyhow::{anyhow, Result};
 use camino::Utf8PathBuf;
 use clap::ArgMatches;
-use tracing::{debug, error, info};
 use regex::Regex;
+use tracing::{debug, error, info};
 
 fn ssh_git_pattern() -> &'static Regex {
     static REGEX: OnceLock<Regex> = OnceLock::new();
@@ -36,7 +36,9 @@ fn init(matches: &ArgMatches) -> Result<()> {
 
     if !existing_repo {
         Command::new("git").args(["add", "."]).status()?;
-        Command::new("git").args(["commit", "-m", "initial commit"]).status()?;
+        Command::new("git")
+            .args(["commit", "-m", "initial commit"])
+            .status()?;
     }
     Ok(())
 }
@@ -45,9 +47,7 @@ fn clone(matches: &ArgMatches) -> Result<()> {
     let url = personalize_url(matches)?;
 
     let mut command = Command::new("git");
-    command
-        .arg("clone".to_string())
-        .arg(url);
+    command.arg("clone").arg(url);
 
     if let Some(destination) = matches.get_one::<String>("destination") {
         command.arg(destination);
@@ -73,7 +73,10 @@ fn add_remote(matches: &ArgMatches) -> Result<()> {
 }
 
 fn personalize_url(matches: &ArgMatches) -> Result<String> {
-    let url = matches.get_one::<String>("url").expect("URL is Required by Clap").to_string();
+    let url = matches
+        .get_one::<String>("url")
+        .expect("URL is Required by Clap")
+        .to_string();
 
     if matches.get_flag("personal") {
         if url.starts_with("git@github.com") {
@@ -92,7 +95,13 @@ fn personalize_repo(matches: &ArgMatches, destination: Option<String>) -> Result
     if matches.get_flag("personal") {
         info!("Personalizing Repo");
         let mut command = Command::new("git");
-        command.args(["config", "--local", "--add", "user.email", "jimmie.fulton@gmail.com"]);
+        command.args([
+            "config",
+            "--local",
+            "--add",
+            "user.email",
+            "jimmie.fulton@gmail.com",
+        ]);
 
         if let Some(destination) = destination {
             command.current_dir(destination);
@@ -107,20 +116,32 @@ fn personalize_repo(matches: &ArgMatches, destination: Option<String>) -> Result
 
 fn personalization_directory(matches: &ArgMatches) -> Result<Option<String>> {
     if let Some(destination) = matches.get_one::<String>("destination") {
-        return Ok(Some(destination.into()))
+        return Ok(Some(destination.into()));
     }
 
-    let url = matches.get_one::<String>("url").expect("URL is required by Clap");
+    let url = matches
+        .get_one::<String>("url")
+        .expect("URL is required by Clap");
 
     if let Some(captures) = ssh_git_pattern().captures(url) {
-        let directory = Utf8PathBuf::from(&captures[2])
-            .file_stem().map(|stem| stem.to_string())
-            .and_then(|directory| {
-                debug!("Captured '{directory}' from '{url}'");
-                Some(directory)
-            });
+        let directory = {
+            let this = Utf8PathBuf::from(&captures[2])
+                .file_stem()
+                .map(|stem| stem.to_string());
+            match this {
+                Some(x) => {
+                    let var_name = |directory| {
+                        debug!("Captured '{directory}' from '{url}'");
+                        Some(directory)
+                    };
+                    var_name(x)
+                }
+                None => None,
+            }
+        };
         return Ok(directory);
     }
 
     Ok(None)
 }
+

@@ -1,9 +1,9 @@
 use std::collections::HashMap;
 use std::sync::{Arc, OnceLock, RwLock};
 
+use crate::installers::InstallerKey;
 use anyhow::{anyhow, Result};
 use tracing::{debug, info};
-use crate::installers::InstallerKey;
 
 use crate::system::Installable;
 
@@ -25,12 +25,15 @@ pub fn installed(key: &InstallerKey) -> Result<bool> {
 }
 
 pub fn register<I: Installable + 'static>(key: InstallerKey, installer: I) -> Result<()> {
-    registry().write().unwrap().register(key, Arc::new(installer))?;
+    registry()
+        .write()
+        .unwrap()
+        .register(key, Arc::new(installer))?;
     Ok(())
 }
 
 pub struct Registry {
-    installers: HashMap<InstallerKey, Arc<dyn Installable>>
+    installers: HashMap<InstallerKey, Arc<dyn Installable>>,
 }
 
 impl Registry {
@@ -40,9 +43,13 @@ impl Registry {
         }
     }
 
-    pub fn register(&mut self, key: InstallerKey, installable: Arc<dyn Installable>) -> Result<&mut Registry> {
+    pub fn register(
+        &mut self,
+        key: InstallerKey,
+        installable: Arc<dyn Installable>,
+    ) -> Result<&mut Registry> {
         if self.installers.contains_key(&key) {
-            return Err(anyhow!("Registry already contains installer for '{key:?}'"))
+            return Err(anyhow!("Registry already contains installer for '{key:?}'"));
         }
         self.installers.insert(key, installable);
         Ok(self)
@@ -50,9 +57,7 @@ impl Registry {
 
     pub fn install(&self, key: &InstallerKey) -> Result<()> {
         match self.installers.get(key) {
-            None => {
-                return Err(anyhow!("'{:?}' not registered", key))
-            }
+            None => Err(anyhow!("'{:?}' not registered", key)),
             Some(installer) => {
                 for dependency in installer.dependencies() {
                     self.install(dependency)?
@@ -60,7 +65,7 @@ impl Registry {
                 debug!("Checking {key:?}:");
                 if !installer.installed()? {
                     debug!("\t'{key:?} installing");
-                    return installer.install();
+                    installer.install()
                 } else {
                     info!("\t'{key:?}' already installed");
                     Ok(())
@@ -71,9 +76,7 @@ impl Registry {
 
     pub fn update(&self, key: &InstallerKey) -> Result<()> {
         match self.installers.get(key) {
-            None => {
-                return Err(anyhow!("'{:?}' not registered", key))
-            }
+            None => Err(anyhow!("'{:?}' not registered", key)),
             Some(installer) => {
                 info!("Updating '{key:?}'");
                 installer.update()
@@ -83,12 +86,9 @@ impl Registry {
 
     pub fn installed(&self, key: &InstallerKey) -> Result<bool> {
         match self.installers.get(key) {
-            None => {
-                return Err(anyhow!("'{:?}' not registered", key))
-            }
-            Some(installer) => {
-                return installer.installed();
-            }
+            None => Err(anyhow!("'{:?}' not registered", key)),
+            Some(installer) => installer.installed(),
         }
     }
 }
+

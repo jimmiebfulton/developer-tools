@@ -8,7 +8,7 @@ use crate::utils::{execute, home_path};
 pub struct CargoCommand {
     command: String,
     package: Option<String>,
-    dependencies: Vec<InstallerKey>
+    dependencies: Vec<InstallerKey>,
 }
 
 impl CargoCommand {
@@ -45,9 +45,9 @@ impl Installable for CargoCommand {
     fn install(&self) -> anyhow::Result<()> {
         let package = self.package().unwrap_or(self.command());
         execute(
-            Command::new(home_path(".cargo/bin/cargo").to_string())
+            Command::new(home_path(".cargo/bin/cargo"))
                 .arg("install")
-                .arg(package)
+                .arg(package),
         )?;
         Ok(())
     }
@@ -68,13 +68,13 @@ impl Installable for Rust {
         execute(
             Command::new("/bin/bash")
                 .arg("-c")
-                .arg( "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh")
+                .arg("curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"),
         )?;
         execute(
-            Command::new(home_path(".cargo/bin/rustup".to_string()))
+            Command::new(home_path(".cargo/bin/rustup"))
                 .arg("component")
                 .arg("add")
-                .arg("rust-src")
+                .arg("rust-src"),
         )?;
         Ok(())
     }
@@ -87,3 +87,4 @@ impl Installable for Rust {
         Default::default()
     }
 }
+
